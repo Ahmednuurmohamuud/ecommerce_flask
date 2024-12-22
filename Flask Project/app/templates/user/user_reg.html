@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'user/header.html' %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+        .register {
+            background: -webkit-linear-gradient(left, #e7db2b, #908819);
+            margin-top: 3%;
+            padding: 3%;
+        }
+        
+        .register-left {
+            text-align: center;
+            color: #fff;
+            margin-top: 4%;
+        }
+        
+        .register-left input {
+            border: none;
+            border-radius: 1.5rem;
+            padding: 2%;
+            width: 60%;
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #383d41;
+            margin-top: 30%;
+            margin-bottom: 3%;
+            cursor: pointer;
+        }
+        
+        .register-right {
+            background: #f8f9fa;
+            border-top-left-radius: 10% 50%;
+            border-bottom-left-radius: 10% 50%;
+        }
+        
+        .register-left img {
+            margin-top: 15%;
+            margin-bottom: 5%;
+            width: 25%;
+            -webkit-animation: mover 2s infinite alternate;
+            animation: mover 1s infinite alternate;
+        }
+        
+        @-webkit-keyframes mover {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @keyframes mover {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .register-left p {
+            font-weight: lighter;
+            padding: 12%;
+            margin-top: -9%;
+        }
+        
+        .register .register-form {
+            padding: 10%;
+            margin-top: 10%;
+        }
+        
+        .btnRegister {
+            float: right;
+            margin-top: 10%;
+            border: none;
+            border-radius: 1.5rem;
+            padding: 2%;
+            background: #313336;
+            color: #fff;
+            font-weight: 600;
+            width: 50%;
+            cursor: pointer;
+        }
+        
+        .register .nav-tabs {
+            margin-top: 3%;
+            border: none;
+            background: #101112;
+            border-radius: 1.5rem;
+            width: 28%;
+            float: right;
+        }
+        
+        .register .nav-tabs .nav-link {
+            padding: 2%;
+            height: 34px;
+            font-weight: 600;
+            color: #fff;
+            border-top-right-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+        }
+        
+        .register .nav-tabs .nav-link:hover {
+            border: none;
+        }
+        
+        .register .nav-tabs .nav-link.active {
+            width: 100px;
+            color: #1e1818;
+            border: 2px solid #543c89b6;
+            border-top-left-radius: 1.5rem;
+            border-bottom-left-radius: 1.5rem;
+        }
+        
+        .register-heading {
+            text-align: center;
+            margin-top: 8%;
+            margin-bottom: -15%;
+            color: #495057;
+        }
+    </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+
+    <!-- Navbar -->
+    {% include 'user/navbar.html' %}
+
+    <!-- Sidebar -->
+
+    <!-- Content Wrapper. Contains page content -->
+
+    <!-- Main content -->
+
+
+
+
+
+
+
+
+
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp" alt="" />
+                <h3>Welcome</h3>
+                <p>You are 30 seconds away from earning your own money!</p>
+                <a class="login-link" href="{{ url_for('login.index_login') }}">
+                    <input type="submit" value="Login">
+                </a>
+                <br/>
+                <span class="flat-button">Already have an Account? </span>
+            </div>
+            <div class="col-md-9 register-right">
+
+
+                <div>
+                    <h3 class="register-heading">Apply as a Employee</h3>
+                    <div class="row register-form">
+                        <div class="col-md-12">
+                            <form action="{{ url_for('user_reg.insert_user')}}" method="POST">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Full Name</label>
+                                            <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="Enter Full Name" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="text" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" name="phone" class="form-control" id="exampleFormControlInput1" placeholder="Enter Phone" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input name="address" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Address" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input type="text" name="uname" class="form-control" id="exampleFormControlInput1" placeholder="Enter Username" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter password" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input name="password" type="repassword" class="form-control" id="exampleFormControlInput1" placeholder="re-enter Password" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary mb-2 flat-button">Sign Up</button>
+
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="col-md-3">
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- /.content -->
+
+    <!-- /.content-wrapper -->
+
+    <!-- Footer -->
+    {% include 'user/footer.html' %}
+
+    <!-- ./wrapper -->
+</body>
+
+</html>

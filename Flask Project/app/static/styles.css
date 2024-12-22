@@ -1,0 +1,431 @@
+
+    body {
+        margin-top: 20px;
+        background: #130101d0;
+    }
+
+    .ui-w-40 {
+        width: 40px !important;
+        height: auto;
+    }
+
+    .card {
+        box-shadow: 0 1px 15px 1px rgba(52, 40, 104, .08);
+    }
+
+    .ui-product-color {
+        display: inline-block;
+        overflow: hidden;
+        margin: .144em;
+        width: .875rem;
+        height: .875rem;
+        border-radius: 10rem;
+        -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset;
+        vertical-align: middle;
+    }
+
+    .modal-left {
+
+        top: 11%;
+        right: 50px;
+        transform: translateY(0);
+        margin: 0;
+        width: auto;
+        /* Ensures the modal takes its full width */
+        max-width: 47%;
+        left: 275px
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+        background-color: #ffc107;
+        border-radius: 5px;
+    }
+
+    a {
+        font-size: 14px;
+        font-weight: 700
+    }
+
+    .superNav {
+        font-size: 13px;
+    }
+
+    .form-control {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    @media screen and (max-width:540px) {
+        .centerOnMobile {
+            text-align: center
+        }
+    }
+
+    .card {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .card img {
+        border-radius: 10px 10px 0 0;
+        object-fit: cover;
+    }
+
+    i.fa-star {
+        color: orangered;
+    }
+
+    .btn-group i {
+        color: orangered;
+    }
+
+    .btn-group button:hover {
+        background-color: orange;
+    }
+
+    .btn-group button:hover i.fa-solid {
+        color: black;
+    }
+
+    .card-body h2 {
+        font-size: 1.2em;
+        text-transform: capitalize;
+    }
+
+    /* Indicators */
+
+    .owl-theme .owl-dots .owl-dot.active span,
+    .owl-theme .owl-dots .owl-dot:hover span {
+        background: orange;
+        width: 30px;
+    }
+
+    .owl-theme .owl-dots .owl-dot span {
+        width: 15px;
+        height: 15px;
+        background: orangered;
+        transition: all .2s ease;
+    }
+
+    /* Controls */
+    /* button element */
+
+    .owl-carousel .owl-nav button.owl-next,
+    .owl-carousel .owl-nav button.owl-prev {
+        position: relative;
+        background-color: rgba(255, 166, 0, 0.3);
+        width: 30px;
+        padding: 5px;
+    }
+
+    .owl-carousel .owl-nav button.owl-next:hover,
+    .owl-carousel .owl-nav button.owl-prev:hover {
+        background-color: orange;
+    }
+
+    .owl-carousel .owl-nav button.owl-next::before,
+    .owl-carousel .owl-nav button.owl-prev::before {
+        width: 100%;
+        height: 100%;
+        color: orangered;
+        /* inset: 0;
+        position: absolute; */
+    }
+
+    .owl-carousel .owl-nav button.owl-next::before {
+        content: '\f061';
+        /*unicode for arrow-right*/
+        font-family: 'Font Awesome 5 Free';
+        /* Font family for Font Awesome */
+        font-weight: 900;
+        /* Font weight for the solid style (fas) */
+        margin-right: 5px;
+    }
+
+    .owl-carousel .owl-nav button.owl-prev::before {
+        content: '\f060';
+        /*unicode for arrow-left*/
+        font-family: 'Font Awesome 5 Free';
+        /* Font family for Font Awesome */
+        font-weight: 900;
+        /* Font weight for the solid style (fas) */
+        margin-right: 5px;
+    }
+
+    .owl-carousel .owl-nav .owl-next [aria-label="Next"],
+    .owl-carousel .owl-nav .owl-prev [aria-label="Previous"] {
+        visibility: hidden
+            /*The Span element*/
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 10px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .cart img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .categories {
+        display: flex;
+        justify-content: space-around;
+        background-color: #f8f8f8;
+        padding: 20px 0;
+    }
+
+    .category {
+        text-align: center;
+        flex: 1;
+    }
+
+    .promo-banner {
+        background-color: #f1c40f;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .new-arrivals {
+        padding: 20px;
+    }
+
+    .new-arrivals h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .product {
+        text-align: center;
+        border: 1px solid #eee;
+        padding: 20px;
+        margin: 10px;
+        display: inline-block;
+        width: 200px;
+        vertical-align: top;
+    }
+
+    .product img {
+        width: 100%;
+        height: auto;
+    }
+
+    button {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+
+    /* ---------- */
+
+    *,
+    *::after,
+    *::before {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    .carousel-item {
+        min-height: 100vh;
+        background-position: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .carousel-item::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+    }
+
+    .carousel-item .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .carousel-item h2 {
+        font-size: 80px;
+        color: #ffffff;
+        margin: 0 10px;
+        opacity: 0;
+    }
+
+    .carousel-item p {
+        color: #a09f9f;
+        margin: 0;
+        opacity: 0;
+    }
+
+    .name h2 {
+        font-size: 4em;
+        white-space: nowrap;
+    }
+
+    .name p {
+        color: #ffffff;
+        font-size: 2em;
+        margin: 0;
+        opacity: 0;
+    }
+
+    .name i {
+        width: 30px;
+        line-height: 30px;
+        color: white;
+        margin: 2px;
+        font-size: 1.3em;
+        display: inline-block;
+        border-radius: 50%;
+        box-shadow: 0px 0px 2px 2px #fff;
+        border: 2px solid transparent;
+    }
+
+    em {
+        font-style: normal;
+        font-size: 0.7em;
+        color: #ccc;
+    }
+
+    .carousel-item.active h2 {
+        animation: fadeInLeft 0.5s ease forwards;
+    }
+
+    .carousel-item.active p {
+        animation: fadeInRight 0.5s ease forwards;
+    }
+
+    .carousel-controls {
+        position: absolute;
+        left: 50%;
+        bottom: 40px;
+        z-index: 10;
+        transform: translateX(-50%);
+    }
+
+    .carousel-indicators {
+        position: relative;
+        margin: 0;
+    }
+
+    .main .carousel-indicators button {
+        width: 60px;
+        height: 60px;
+        margin: 0 5px;
+        border-radius: 50%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border: 2px solid transparent;
+        transition: all 0.3s linear;
+    }
+
+    .carousel-indicators button.active {
+        box-shadow: 0 0 10px #ffffff;
+        transform: scale(1.2);
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        height: 60px;
+        width: 60px;
+        background-color: rgba(0, 0, 0, 0.521);
+        opacity: 1;
+        z-index: 3;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+    }
+
+    .carousel-control-prev {
+        left: -80%;
+    }
+
+    .carousel-control-next {
+        right: -80%;
+    }
+
+    @keyframes fadeInLeft {
+        0% {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+
+    @keyframes fadeInRight {
+        0% {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+
+    @media (max-width: 767px) {
+
+        .carousel-control-next,
+        .carousel-control-prev {
+            display: none;
+        }
+
+        .carousel-indicators button {
+            height: 60px;
+            width: 60px;
+        }
+
+        .carousel-item h2 {
+            font-size: 45px;
+        }
+
+        .carousel-item p {
+            font-size: 22px;
+        }
+    }

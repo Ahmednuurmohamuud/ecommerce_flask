@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'admin/view/header.html' %}
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        {% include 'admin/view/navbar.html' %}
+
+        <!-- Sidebar -->
+        {% include 'admin/view/sidebar.html' %}
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="card card-primary card-outline mt-3">
+                        <div class="card-body" style="background-color: rgb(235, 229, 234);">
+                            <div class="row">
+                                <div class="col-sm-2"></div>
+
+                                <!-- content goes here -->
+                                <div class="col-sm-12">
+
+
+                                    {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                    <div id="alertMessage" class="alert alert-success alert-dismissable" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
+                                    <script>
+                                        // JavaScript to hide the alert after 3 seconds
+                                        setTimeout(function () {
+                                            document.getElementById('alertMessage').style.display = 'none';
+                                        }, 3000); // 3000 milliseconds = 3 seconds
+                                    </script>
+                                    {% endif %}
+                                    {% endwith %}
+
+                                    <form id="purchaseForm" onsubmit="return alertFormData()"
+                                        action="{{ url_for('pur_products.insert_pur_products') }}" method="POST">
+                                        <div class="card card-primary card-outline">
+
+                                            <div class="card-body">
+                                                <h3>Billing Information</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Select Supplier</label>
+                                                            <select class="form-control select2" style="width: 100%;"
+                                                                name="purchase_supplier" id="purchase_supplier"
+                                                                required>
+                                                                <option selected="selected" value="">Select Supplier
+                                                                </option>
+                                                                {% for row in supplier %}
+                                                                <option value="{{ row.0 }}">{{ row.1 }}
+                                                                </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="invoice_no">Invoice Number</label>
+                                                            <input type="text" name="invoice_no" value=""
+                                                                id="invoice_no" class="form-control"
+                                                                placeholder="Enter Invoice Number" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="purchase_date">Purchase Date</label>
+                                                            <input type="date" name="purchase_date" id="purchase_date"
+                                                                value="{{ today }}" class="form-control"
+                                                                placeholder="Enter Purchase Date" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="card card-primary card-outline">
+                                                    <div class="card-body">
+                                                        <h3 class="mt-4 d-inline">Purchase Information</h3>
+                                                        <div class="float-right bg-primary">
+                                                            <button type="button"
+                                                                class="btn btn-flat btn-primary text-center"
+                                                                id="purchase_addNew"><span
+                                                                    class="fas fa-shopping-cart mr-3"></span> Register
+                                                                New Product</button>
+                                                            <button type="button"
+                                                                class="btn btn-flat btn-primary text-center"
+                                                                id="purchase_addRow"><span
+                                                                    class="fas fa-plus mr-3"></span> Add New
+                                                                Row</button>
+                                                        </div>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover"
+                                                                style="table-layout: fixed;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="7%">S.No</th>
+                                                                        <th width="20%">Product Name</th>
+                                                                        <th width="10%" align="center">Quantity</th>
+                                                                        <th width="10%" align="center">Cost</th>
+                                                                        <th width="10%" align="center">Price</th>
+                                                                        <th width="18%" align="center">Expire Date</th>
+                                                                        <th width="10%" align="center">Amount</th>
+                                                                        <th width="15%" align="center">Remove</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td width="7%">1</td>
+                                                                        <td width="20%">
+                                                                            <select
+                                                                                class="form-control select2 purchase_product"
+                                                                                style="width: 100%;"
+                                                                                name="purchase_product" required>
+                                                                                <option selected="selected" value="">
+                                                                                    Select Product</option>
+                                                                                {% for row in products %}
+                                                                                <option value="{{ row.0 }}">{{ row.1 }}
+                                                                                </option>
+                                                                                {% endfor %}
+                                                                            </select>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <input type="number" min="1"
+                                                                                class="form-control quantity number"
+                                                                                name="quantity" required>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <input type="text" min="0"
+                                                                                class="form-control purchase_cost number"
+                                                                                name="purchase_cost" required>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <input type="text" min="0"
+                                                                                class="form-control sell_price number"
+                                                                                name="sell_price" required>
+                                                                        </td>
+                                                                        <td width="20%">
+                                                                            <input type="date"
+                                                                                class="form-control expire_date"
+                                                                                name="expire_date" required>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <input type="text" name="amount"
+                                                                                class="form-control amount" readonly>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <button type="button" class="btn btn-block btn-warning purchase_remove">
+                                                                                <span class="fas fa-times"></span> 
+                                                                            </button>
+                                                                       </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="7%">2</td>
+                                                                        <td width="20%">
+                                                                            <select
+                                                                                class="form-control select2 purchase_product"
+                                                                                style="width: 100%;"
+                                                                                name="purchase_product" required>
+                                                                                <option selected="selected" value="">
+                                                                                    Select Product</option>
+                                                                                {% for row in products %}
+                                                                                <option value="{{ row.0 }}">{{ row.1 }}
+                                                                                </option>
+                                                                                {% endfor %}
+                                                                            </select>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <input type="number" min="1"
+                                                                                class="form-control quantity number"
+                                                                                name="quantity" required>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <input type="text" min="0"
+                                                                                class="form-control purchase_cost number"
+                                                                                name="purchase_cost" required>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <input type="text" min="0"
+                                                                                class="form-control sell_price number"
+                                                                                name="sell_price" required>
+                                                                        </td>
+                                                                        <td width="20%">
+                                                                            <input type="date"
+                                                                                class="form-control expire_date"
+                                                                                name="expire_date" required>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <input type="text" name="amount"
+                                                                                class="form-control amount" readonly>
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            <button type="button" class="btn btn-block btn-warning purchase_remove">
+                                                                                <span class="fas fa-times"></span> 
+                                                                            </button>
+                                                                       </td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="card card-primary card-outline">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="purchase_total">Total</label>
+                                                                    <input type="text" name="purchase_total"
+                                                                        id="purchase_total" class="form-control"
+                                                                        readonly required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="purchase_discount">Discount</label>
+                                                                    <input type="text" min="0" name="purchase_discount"
+                                                                        id="purchase_discount"
+                                                                        class="form-control number" value="0">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="purchase_grand_total">Grand
+                                                                        Total</label>
+                                                                    <input type="text" name="purchase_grand_total"
+                                                                        id="purchase_grand_total" class="form-control"
+                                                                        readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="purchase_paid">Paid</label>
+                                                                    <input type="text" min="0" name="purchase_paid"
+                                                                        id="purchase_paid" class="form-control number"
+                                                                        value="0">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="purchase_rest">Rest</label>
+                                                                    <input type="text" name="purchase_rest"
+                                                                        id="purchase_rest" class="form-control"
+                                                                        readonly>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                            </div>
+                                            <div class="col-3">
+                                                <button type="reset"
+                                                    class="btn btn-danger btn-block float-right sys-cancel">Cancel</button>
+                                            </div>
+                                            <div class="col-3">
+                                                <button type="submit"
+                                                    class="btn btn-block float-right btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+
+
+
+                                </div>
+                                <!-- Content ends here-->
+
+                                <div class="col-sm-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Footer -->
+        {% include 'admin/view/footer.html' %}
+    </div>
+    <!-- ./wrapper -->
+
+
+    <script>
+
+        $("body").on("keyup blur", ".purchase_cost", function () {
+            //alert(1);
+            var purchase_price = parseFloat($(this).val());
+            var percentage = parseFloat(purchase_price * 0.5);
+            var sell_price = purchase_price + percentage;
+            $("#sell_price").val(sell_price);
+            $(this).parent().parent().find(".sell_price").val(sell_price.toFixed(1));
+        });
+
+        $("body").on("keyup blur", ".purchase_cost", function (e) {
+            var quantity_val = parseFloat($(this).parent().parent().find(".quantity").val());
+            if (!isNaN(quantity_val)) {
+                if ($(this).parent().parent().find(".quantity").val() != "") {
+                    var cost_val = parseFloat($(this).val());
+                    var amount_val = cost_val * quantity_val;
+                    $(this).parent().parent().find(".amount").val(amount_val.toFixed(1));
+                    $(this).parent().parent().find(".amount").trigger("change");
+                }
+            } else {
+                $(this).parent().parent().find(".amount").val("");
+            }
+        });
+
+        $("body").on("change", ".amount", function () {
+            var total = 0.0;
+            $(".amount").each(function () {
+                if ($(this).val() != "") {
+                    total = parseFloat(total) + parseFloat($(this).val());
+                }
+            });
+            $("#purchase_total").val(total);
+            if ($("#purchase_discount").val()) {
+                var purchase_discount = parseFloat($("#purchase_discount").val());
+                var purchase_total = parseFloat($("#purchase_total").val());
+                var grand_total = purchase_total - purchase_discount;
+                $("#purchase_grand_total").val(grand_total);
+                $("#purchase_rest").val(grand_total);
+            } else {
+                $("#purchase_grand_total").val($("#purchase_total").val());
+                $("#purchase_rest").val($("#purchase_total").val());
+            }
+        });
+
+
+        $("body").on("change", "#purchase_discount", function () {
+            if ($("#purchase_total").val()) {
+                if ($(this).val()) {
+                    var purchase_discount = parseFloat($(this).val());
+                    var purchase_total = parseFloat($("#purchase_total").val());
+                    var grand_total = purchase_total - purchase_discount;
+                    $("#purchase_grand_total").val(grand_total);
+                    if ($("#purchase_paid").val()) {
+                        var purchase_paid = parseFloat($("#purchase_paid").val());
+                        var grand_total = parseFloat($("#purchase_grand_total").val());
+                        var rest = grand_total - purchase_paid;
+                        $("#purchase_rest").val(rest);
+                    } else {
+                        $("#purchase_rest").val($("#purchase_grand_total").val());
+                    }
+                } else if ($("#purchase_paid").val() && $(this).val() == "") {
+                    $("#purchase_grand_total").val($("#purchase_total").val());
+                    var purchase_paid = parseFloat($("#purchase_paid").val());
+                    var grand_total = parseFloat($("#purchase_grand_total").val());
+                    var rest = grand_total - purchase_paid;
+                    $("#purchase_rest").val(rest);
+                } else if ($(this).val() == "") {
+                    $("#purchase_grand_total").val($("#purchase_total").val());
+                    $("#purchase_rest").val($("#purchase_total").val());
+                }
+            }
+        });
+
+
+        $("body").on("keyup", "#purchase_discount", function () {
+            if ($("#purchase_total").val()) {
+                if ($(this).val()) {
+                    var purchase_discount = parseFloat($(this).val());
+                    var purchase_total = parseFloat($("#purchase_total").val());
+                    var grand_total = purchase_total - purchase_discount;
+                    $("#purchase_grand_total").val(grand_total);
+                    if ($("#purchase_paid").val()) {
+                        var purchase_paid = parseFloat($("#purchase_paid").val());
+                        var grand_total = parseFloat($("#purchase_grand_total").val());
+                        var rest = grand_total - purchase_paid;
+                        $("#purchase_rest").val(rest);
+                    } else {
+                        $("#purchase_rest").val($("#purchase_grand_total").val());
+                    }
+                } else if ($("#purchase_paid").val()) {
+                    $("#purchase_grand_total").val($("#purchase_total").val());
+                    var purchase_paid = parseFloat($("#purchase_paid").val());
+                    var grand_total = parseFloat($("#purchase_grand_total").val());
+                    var rest = grand_total - purchase_paid;
+                    $("#purchase_rest").val(rest);
+                } else if ($(this).val() == "") {
+                    $("#purchase_grand_total").val($("#purchase_total").val());
+                    $("#purchase_rest").val($("#purchase_total").val());
+                }
+            }
+        });
+
+
+        $("body").on("change", "#purchase_paid", function () {
+            if ($("#purchase_grand_total").val()) {
+                if ($(this).val()) {
+                    var purchase_paid = parseFloat($(this).val());
+                    var grand_total = parseFloat($("#purchase_grand_total").val());
+                    var rest = grand_total - purchase_paid;
+                    $("#purchase_rest").val(rest);
+                } else {
+                    $("#purchase_rest").val($("#purchase_grand_total").val());
+                }
+            }
+        });
+        $("body").on("keyup", "#purchase_paid", function () {
+            if ($("#purchase_grand_total").val()) {
+                if ($(this).val()) {
+                    var purchase_paid = parseFloat($(this).val());
+                    var grand_total = parseFloat($("#purchase_grand_total").val());
+                    var rest = grand_total - purchase_paid;
+                    $("#purchase_rest").val(rest);
+                } else {
+                    $("#purchase_rest").val($("#purchase_grand_total").val());
+                }
+            }
+        });
+
+    </script>
+
+    <script>
+        function alertFormData() {
+            let form = document.getElementById('purchaseForm');
+            let formData = new FormData(form);
+
+            let data = {};
+            formData.forEach((value, key) => {
+                if (!data[key]) {
+                    data[key] = value;
+                } else {
+                    if (!Array.isArray(data[key])) {
+                        data[key] = [data[key]];
+                    }
+                    data[key].push(value);
+                }
+            });
+
+            alert(JSON.stringify(data, null, 2));
+
+            // Return true to allow form submission, false to prevent it
+            return true;
+        }
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let rowCounter = 3; // Start with the next available row number
+    
+        document.getElementById('purchase_addRow').addEventListener('click', function () {
+            const tableBody = document.querySelector('table tbody');
+            const newRow = document.createElement('tr');
+    
+            newRow.innerHTML = `
+            <td width="7%">${rowCounter}</td>
+            <td width="20%">
+                <select class="form-control select2 purchase_product" style="width: 100%;" name="purchase_product" id="purchase_product${rowCounter}">
+                    <option selected="selected" value="">Select Product</option>
+                    {% for row in products %}
+                    <option value="{{ row.0 }}">{{ row.1 }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td width="10%">
+                <input type="number" min="1" class="form-control quantity number" name="quantity">
+            </td>
+            <td width="10%">
+                <input type="text" min="0" class="form-control purchase_cost number" name="purchase_cost">
+            </td>
+            <td width="10%">
+                <input type="text" min="0" class="form-control sell_price number" name="sell_price">
+            </td>
+            <td width="20%">
+                <input type="date" class="form-control expire_date" name="expire_date">
+            </td>
+            <td width="10%">
+                <input type="text" class="form-control amount" name="amount" readonly>
+            </td>
+             <td width="10%">
+                 <button type="button" class="btn btn-block btn-warning purchase_remove">
+                     <span class="fas fa-times"></span> 
+                 </button>
+            </td>
+        `;
+    
+            tableBody.appendChild(newRow);
+            rowCounter++;
+    
+            // Initialize Select2 for the new row
+            $('.select2').select2();
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            });
+        });
+    
+        // Event delegation to handle remove button click for dynamically added rows
+        document.querySelector('table tbody').addEventListener('click', function (event) {
+            if (event.target && event.target.closest('.purchase_remove')) {
+                const row = event.target.closest('tr');
+                row.remove();
+            }
+        });
+    });
+    </script>
+    
+
+
+</body>
+
+</html>
